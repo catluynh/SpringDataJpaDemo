@@ -2,7 +2,10 @@ package demo.SpringDataJpa.Repository;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -11,15 +14,19 @@ import demo.SpringDataJpa.Entity.Employee;
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 	
-	@Query(value ="select * from employee", nativeQuery = true)
+	@Query("select e from Employee e")
 	List<Employee> getAll();
 	
-	@Query(value ="insert into employee(first_name, last_name, email) values(?1, ?2, ?3)", nativeQuery = true)
-	void addEmployee(String first_name, String last_name, String email);
+//	@Query("insert into employee(first_name, last_name, email) values(?1, ?2, ?3)")
+//	void addEmployee(String first_name, String last_name, String email);
 	
-	@Query(value ="update employee set first_name=?1, last_name=?2, email=?3 where id = ?4", nativeQuery = true)
-	void updateEmployee(String first_name, String last_name, String email, Integer id);
+	@Transactional
+	@Modifying
+	@Query("update Employee e set e.firstName=?1, e.lastName=?2, e.email=?3 where e.id = ?4")
+	void updateEmployee(String firstName, String lastName, String email, int id);
 	
-	@Query(value ="delete from employee where id=?1", nativeQuery = true)
+	@Transactional
+	@Modifying
+	@Query("delete from Employee e where e.id=?1")
 	void deleteEmployee(int id);
 }

@@ -23,19 +23,15 @@ public class SpringDataJpaApplicationTests {
 		});
 	}
 	
-	@Test
-	public void add()throws Exception{
-		employeeRepository.addEmployee("xuan", "tin", "xuantintin@gmail.com");
-	}
 
 	@Test
 	public void update()throws Exception{
-		employeeRepository.updateEmployee("trung", "truc", "trungtruc@gmail.com", 4);
+		employeeRepository.updateEmployee("cat", "luynh", "a@gmail.com", 10);
 	}
 	
 	@Test
 	public void delete()throws Exception{
-		employeeRepository.deleteEmployee(3);
+		employeeRepository.deleteEmployee(7);
 	}
 
 }
